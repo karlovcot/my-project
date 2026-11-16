@@ -17,7 +17,6 @@ class UserRepository:
     async def get_all(self) -> list[User]:
         return list(self.__table.values())
 
-    # Добавлено для проверки уникальности
     async def get_by_email(self, email: str) -> User | None:
         for user in self.__table.values():
             if user.email == email:

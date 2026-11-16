@@ -17,7 +17,6 @@ class UserService:
         if await self.__user_repository.get_by_login(user.login):
             raise HTTPException(status.HTTP_400_BAD_REQUEST, detail="Login already exists")
 
-        # Первый пользователь — админ
         all_users = await self.__user_repository.get_all()
         role = UserRole.ADMIN if len(all_users) == 0 else UserRole.USER
 
@@ -48,7 +47,6 @@ class PetService:
         self.__user_repository = user_repository
 
     async def create(self, pet_data: PetCreate) -> Pet:
-        # Проверяем, что владелец существует
         owner = await self.__user_repository.get_by_id(pet_data.owner_id)
         if owner is None:
             raise HTTPException(status.HTTP_404_NOT_FOUND, detail="Owner not found")

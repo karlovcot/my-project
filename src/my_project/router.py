@@ -12,7 +12,6 @@ from my_project.services import UserService, PetService
 
 router = APIRouter()
 
-# Зависимости для получения сервисов из приложения
 def get_user_service(request: Request) -> UserService:
     return request.app.user_service
 
@@ -39,13 +38,11 @@ async def get_user_by_id(id: int, user_service: UserServiceDep) -> UserResponse:
     return UserResponse(name=user.name, email=user.email)
 
 
-# Новый эндпоинт: получение всех пользователей
 @router.get("/users", response_model=list[UserResponse])
 async def get_all_users(user_service: UserServiceDep):
     return await user_service.get_all()
 
 
-# Эндпоинты для питомцев
 @router.post("/pets", status_code=status.HTTP_201_CREATED)
 async def create_pet(pet: PetCreate, pet_service: PetServiceDep):
     await pet_service.create(pet)
