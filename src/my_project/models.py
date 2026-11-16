@@ -1,11 +1,7 @@
 from enum import StrEnum
-
 from pydantic import BaseModel
 
-from my_project.models import UserRole
-
-
-class UserRole(StrEnum):  # noqa: F811
+class UserRole(StrEnum):
     USER = "USER"
     ADMIN = "ADMIN"
 
@@ -16,3 +12,10 @@ class User(BaseModel):
     role: UserRole
     email: str
     password: str
+
+class Pet(BaseModel):
+    id: int
+    name: str
+    species: str
+    age: int
+    owner_id: int
