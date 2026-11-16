@@ -7,7 +7,7 @@ class UserRepository:
         self.__table = dict[int, User]()
 
     async def save(self, user: User):
-        self.__last_id += 1  # Исправлено: было =+
+        self.__last_id += 1
         user.id = self.__last_id 
         self.__table[user.id] = user
 
