@@ -11,7 +11,6 @@ class UserService:
         self.__user_repository = user_repository
 
     async def signup(self, user: UserCreate) -> User:
-        # Проверка на уникальность
         if await self.__user_repository.get_by_email(user.email):
             raise HTTPException(status.HTTP_400_BAD_REQUEST, detail="Email already exists")
         if await self.__user_repository.get_by_login(user.login):
